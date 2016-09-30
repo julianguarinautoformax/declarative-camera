@@ -40,7 +40,7 @@
 
 import QtQuick 2.0
 import QtMultimedia 5.4
-
+import com.afmx.uldfilter 1.0 
 Rectangle {
     id : cameraUI
 
@@ -108,6 +108,7 @@ Rectangle {
         focus: visible
     }
 
+    
     VideoPreview {
         id : videoPreview
         anchors.fill : parent
@@ -118,7 +119,13 @@ Rectangle {
         //don't load recorded video if preview is invisible
         source: visible ? camera.videoRecorder.actualLocation : ""
     }
-
+    UploadFilter{
+        id:ulFilter
+        onFinished: {
+            console.log("CHESTER")
+        }
+    }
+    
     VideoOutput {
         id: viewfinder
         visible: cameraUI.state == "PhotoCapture" || cameraUI.state == "VideoCapture"
@@ -130,6 +137,7 @@ Rectangle {
 
         source: camera
         autoOrientation: true
+        filters: [ulFilter]        
     }
 
     PhotoCaptureControls {
