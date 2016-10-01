@@ -40,7 +40,10 @@
 
 import QtQuick 2.0
 import QtMultimedia 5.4
+
 import com.afmx.uldfilter 1.0 
+import debug 1.0
+
 Rectangle {
     id : cameraUI
 
@@ -121,8 +124,8 @@ Rectangle {
     }
     UploadFilter{
         id:ulFilter
-        onFinished: {
-            console.log("CHESTER")
+        onStarted: {
+            console.log("Filter started")
         }
     }
     
@@ -144,6 +147,7 @@ Rectangle {
         id: stillControls
         anchors.fill: parent
         camera: camera
+        uf:ulFilter
         visible: cameraUI.state == "PhotoCapture"
         onPreviewSelected: cameraUI.state = "PhotoPreview"
         onVideoModeSelected: cameraUI.state = "VideoCapture"
@@ -156,5 +160,17 @@ Rectangle {
         visible: cameraUI.state == "VideoCapture"
         onPreviewSelected: cameraUI.state = "VideoPreview"
         onPhotoModeSelected: cameraUI.state = "PhotoCapture"
+    }
+    AMFXDebugScreenConsole{
+        id:dbgConsole
+        fontPixelSize: 16
+        opacity: 0.5
+    }
+
+    AFMXDebug{
+        
+        id:debuggerConsole
+        onDebugMessage: dbgConsole.debugViewAdd(aString,aColor)
+        stdVersion: false
     }
 }

@@ -2,6 +2,23 @@
 #include <QDebug>
 
 
+void MyUldFilter::rawSave(){
+    m_save = true;
+}
+bool MyUldFilter::isFrameForSaving(){
+    if (m_save){
+        m_save = false;
+        return true;
+    }
+    return false;
+}
+
+
+void MyUldRunnable::setFilter(MyUldFilter*f){
+    isRunning = false;
+    m_f = f;
+            
+}
 
 
 
@@ -13,21 +30,24 @@ QVideoFilterRunnable * MyUldFilter::createFilterRunnable(){
 }
 
 
-void MyUldRunnable::setFilter(MyUldFilter*f){
-    isRunning = false;
-    m_f = f;
-}
-
-
-
 QVideoFrame MyUldRunnable::run(QVideoFrame * input, const QVideoSurfaceFormat &surfaceFormat, RunFlags flags){
     
     Q_UNUSED(surfaceFormat);
     Q_UNUSED(flags);
     QObject * flt = new QObject;
+    
     if(!isRunning){
-        emit m_f->finished(flt);
+        qDebug()<<QVideoFrame::imageFormatFromPixelFormat(input->pixelFormat());
+        qDebug()<<input->pixelFormat();
+        emit m_f->started(flt);
         isRunning = true;
+    }
+    
+    if (m_f->isFrameForSaving()){
+        qDebug()<<"Saving";
+        input->map(QAbstractVideoBuffer::ReadOnly);
+        input->unmap();
+        qDebug()<<"Save done";
     }
     
     return * input;

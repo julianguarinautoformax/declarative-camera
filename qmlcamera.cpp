@@ -42,10 +42,11 @@
 #include <QQuickView>
 #include <QQmlEngine>
 #include "myuldrunnable.h"
+#include "peek-a-boo-lib/peekaboolib.h"
 void declareQMLObjects(){
     
     qmlRegisterType<MyUldFilter>("com.afmx.uldfilter",1,0,"UploadFilter");
-    
+    qmlRegisterType<Peekaboolib>("debug",1,0,"AFMXDebug");
 }
 
 

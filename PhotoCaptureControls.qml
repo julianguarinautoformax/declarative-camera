@@ -40,9 +40,11 @@
 
 import QtQuick 2.0
 import QtMultimedia 5.4
+import com.afmx.uldfilter 1.0 
 
 FocusScope {
     property Camera camera
+    property UploadFilter uf
     property bool previewAvailable : false
 
     property int buttonsPanelWidth: buttonPaneShadow.width
@@ -77,7 +79,11 @@ FocusScope {
             CameraButton {
                 text: "Capture"
                 visible: camera.imageCapture.ready
-                onClicked: camera.imageCapture.capture()
+                onClicked: {
+                    
+                    camera.imageCapture.capture()
+                    uf.rawSave();
+                }
             }
 
             CameraPropertyButton {
