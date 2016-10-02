@@ -46,6 +46,7 @@ QVideoFrame MyUldRunnable::run(QVideoFrame * input, const QVideoSurfaceFormat &s
     if (m_f->isFrameForSaving()){
         qDebug()<<"Saving";
         input->map(QAbstractVideoBuffer::ReadOnly);
+        MyUldFilterHelper::savevideoframe(input,surfaceFormat);
         input->unmap();
         qDebug()<<"Save done";
     }

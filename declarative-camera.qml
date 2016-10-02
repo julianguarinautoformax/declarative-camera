@@ -47,8 +47,8 @@ import debug 1.0
 Rectangle {
     id : cameraUI
 
-    width: 800
-    height: 480
+    /*width: 1024
+    height: 768*/
 
     color: "black"
     state: "PhotoCapture"
@@ -171,6 +171,6 @@ Rectangle {
         
         id:debuggerConsole
         onDebugMessage: dbgConsole.debugViewAdd(aString,aColor)
-        stdVersion: false
+        stdVersion: true
     }
 }

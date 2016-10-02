@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
     declareQMLObjects();
     QObject::connect(view.engine(), SIGNAL(quit()), qApp, SLOT(quit()));
     view.setSource(QUrl("qrc:///declarative-camera.qml"));
-    view.resize(800, 480);
+    view.resize(1280, 1024);
     view.show();
     return app.exec();
 }

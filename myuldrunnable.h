@@ -4,6 +4,12 @@
 #include <QAbstractVideoFilter>
 #include <QVideoFilterRunnable>
 
+class MyUldFilterHelper{
+    
+public:
+    static bool savevideoframe(QVideoFrame * pf, const QVideoSurfaceFormat &sf);
+};
+
 class MyUldFilter : public QAbstractVideoFilter
 {
     Q_OBJECT
